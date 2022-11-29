@@ -4,13 +4,15 @@ const User = require("../models/user.model.js");
 
 // READ
 exports.getUser = (req, res) => {
+    console.log(req.userTokenid);
     // Find one by id
-    User.findById(req.params.id)
+    // User.findById(req.params.id)
+    User.findById(req.userTokenid) 
     // callback
     .then((user) => {
         if (!user) {
             return res.status(404).send({
-                message: "User not found with id " + req.params.id
+                message: "User not found with id "
             });
         }
       res.send(user);
@@ -57,12 +59,14 @@ exports.deleteUser = (req, res) => {
 };
 
 exports.getAllUsers = (req, res) => {
-    User.find()
-    .then((users) => {
-        res.send(users);
-    })
-    .catch((err) => {
-        console.log(err);
-        res.status(400).send(err);
-    });
+    if(req.userToken.isAdmin) {
+        User.find()
+        .then((users) => {
+            res.send(users);
+        })
+        .catch((err) => {
+            console.log(err);
+            res.status(400).send(err);
+        });
+    }
 };

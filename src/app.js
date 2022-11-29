@@ -54,7 +54,6 @@ app.get("/products/:id", (req, res) => {
 //READ
 //UPDATE
 //DELETE
-
 //Bonus Encryption des mdp
 
 
