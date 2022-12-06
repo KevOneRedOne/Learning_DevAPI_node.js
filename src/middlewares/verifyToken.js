@@ -19,10 +19,9 @@ function verifyToken(req, res, next) {
                 token: null
             });
         }
-        req.userTokenid = jwtDecoded.id;
+        req.userToken = jwtDecoded;
+        next(); // permet de passer à la fonction suivante, dans le controleur user
         console.log(jwtDecoded);
-        // req.userToken = jwtDecoded;
-        next();
     });
 }
 

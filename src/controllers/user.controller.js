@@ -4,10 +4,10 @@ const User = require("../models/user.model.js");
 
 // READ
 exports.getUser = (req, res) => {
-    console.log(req.userTokenid);
+    console.log(req.userToken.id);
     // Find one by id
     // User.findById(req.params.id)
-    User.findById(req.userTokenid) 
+    User.findById(req.userToken.id) 
     // callback
     .then((user) => {
         if (!user) {
@@ -59,7 +59,8 @@ exports.deleteUser = (req, res) => {
 };
 
 exports.getAllUsers = (req, res) => {
-    if(req.userToken.isAdmin) {
+    console.log(req.userToken.isAdmin);
+    if (req.userToken.isAdmin === true) {
         User.find()
         .then((users) => {
             res.send(users);
