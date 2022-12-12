@@ -47,7 +47,6 @@ exports.register = (req, res) => {
   //Bonus Encryption des mdp
   let hashedPassword = bcrypt.hashSync(req.body.password, 10);
   // Create a User
-  console.log(req.body);
   const newUser = new User({
     firstname: req.body.firstname,
     lastname: req.body.lastname,

@@ -7,7 +7,7 @@ function verifyAdmin(req, res, next){
             auth: false,
         });
     }
-    next(); 
+    next(); // next middleware 
 };
 
 module.exports = verifyAdmin;

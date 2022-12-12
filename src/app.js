@@ -15,7 +15,7 @@ app.use(bodyParser.json());
 mongoose
   .connect(
     // "mongodb+srv://"+process.env.MONGODB_USER +":"+process.env.MONGODB_PWD +"@cluster0.fekdrmv.mongodb.net/?retryWrites=true&w=majority",
-    `mongodb+srv://${process.env.MONGODB_USER}:${process.env.MONGODB_PWD}@cluster0.fekdrmv.mongodb.net/?retryWrites=true&w=majority`
+    `mongodb+srv://${process.env.MONGODB_USER}:${process.env.MONGODB_PWD}${process.env.MONGODB_CLUSTER}.mongodb.net/?retryWrites=true&w=majority`
   )
   .then(() => {
     console.log("You are successfully connected to database");
@@ -29,33 +29,6 @@ app.get(
     res.send("<h1>Hello World</h1");
   }
 );
-
-// Créer une seconde route de type POST
-// /login
-// app.post("/auth/login", (req, res) => {
-//   // console.log du body de la requête
-//   console.log(req.body);
-//   // Avec les Query
-//   //   console.log(req.query);
-//   console.log(req.body.username);
-//   // Dans le controller = recupérer le body de la requête {username,password}
-//   // renvoyer une réponse "vous êtes connectés"*
-//   res.send("Bonjour, Vous êtes connectés");
-// });
-
-app.get("/products/:id", (req, res) => {
-  // console.log du body de la requête avec les Query
-  console.log(req.params);
-  res.send(req.params.id);
-});
-
-// CRUD
-//CREATE
-//READ
-//UPDATE
-//DELETE
-//Bonus Encryption des mdp
-
 
 app.use("/api/v1", apiRouter);
 
