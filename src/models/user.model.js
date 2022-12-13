@@ -1,5 +1,10 @@
 const mongoose = require("mongoose");
 
+// const validEmail = (email) => {
+//   const regexEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+//   return regexEmail.test(email);
+// };
+
 const userSchema = new mongoose.Schema(
   {
     firstname: {
@@ -18,14 +23,15 @@ const userSchema = new mongoose.Schema(
     },
     email: {
       type: String,
-      required: true,
+      trim:true,
       lowercase: true,
-      unique: true,
-      length: 50
+      unique: [true, 'Email already exists'],
+      required: [true, 'Email is required'],
+      // validate: [validEmail, "Please fill a valid email address"]
     },
     password: {
       type: String,
-      required: true,
+      required: [true, 'Password is required'],
     },
     isAdmin: {
       type: Boolean,

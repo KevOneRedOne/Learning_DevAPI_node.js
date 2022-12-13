@@ -92,8 +92,6 @@ exports.updateUserWishlist = (req, res) => {
             res.send(user);
         });
         
-        
-  
         user.wishlist.push(req.body.productId);
         user.save().then(userUpdate => {
             User.findById(req.userToken.id).populate('wishlist')

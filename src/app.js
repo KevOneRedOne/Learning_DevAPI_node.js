@@ -36,3 +36,11 @@ app.use("/api/v1", apiRouter);
 app.listen(process.env.PORT, function () {
   console.log("Server Up");
 });
+
+// Ajouter une route + controller spécifiquement pour la MAJ du mot de passe
+
+// Appliquer le middleware mongoose .pre() pour hasher le mdp en base de données.
+
+// Donc à chaque fois que le mdp va être modifié le middleware va déclencher le hashage du mdp.
+
+// -> Déplacer le hash sur le controller
