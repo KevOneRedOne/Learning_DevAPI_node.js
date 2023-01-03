@@ -1,5 +1,6 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+// eslint-disable-next-line import/extensions
 const User = require('../models/user.model.js');
 
 // Read
@@ -25,6 +26,7 @@ exports.login = (req, res) => {
         });
       }
       const userToken = jwt.sign({
+        // eslint-disable-next-line no-underscore-dangle
         id: user._id,
         isAdmin: user.isAdmin,
       }, process.env.SECRET_KEY);
