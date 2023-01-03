@@ -1,5 +1,5 @@
-const mongoose = require("mongoose");
-const bcrypt = require("bcrypt");
+const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
 
 // const validEmail = (email) => {
 //   const regexEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
@@ -13,18 +13,18 @@ const userSchema = new mongoose.Schema(
       required: true,
       lowercase: true,
       maxLength: 50,
-      minLength: 2
+      minLength: 2,
     },
     lastname: {
       type: String,
       required: true,
       lowercase: true,
       maxLength: 50,
-      minLength: 2
+      minLength: 2,
     },
     email: {
       type: String,
-      trim:true,
+      trim: true,
       lowercase: true,
       unique: [true, 'Email already exists'],
       required: [true, 'Email is required'],
@@ -36,27 +36,25 @@ const userSchema = new mongoose.Schema(
     },
     isAdmin: {
       type: Boolean,
-      default: false
+      default: false,
     },
     wishlist: [
-      {type: mongoose.Schema.Types.ObjectId, ref: "Product"}
-    ]
+      { type: mongoose.Schema.Types.ObjectId, ref: 'Product' },
+    ],
   },
   {
     timestamps: true,
-  }
+  },
 );
 
-userSchema.pre('save', function(next) {
-  
+userSchema.pre('save', function (next) {
   if (!this.isModified('password')) {
     return next();
   }
 
-  let hashedPassword = bcrypt.hashSync(this.password, 10);
+  const hashedPassword = bcrypt.hashSync(this.password, 10);
   this.password = hashedPassword;
   next();
 });
 
-
-module.exports = mongoose.model("User", userSchema);
+module.exports = mongoose.model('User', userSchema);

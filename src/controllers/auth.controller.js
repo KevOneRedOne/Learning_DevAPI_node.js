@@ -1,6 +1,6 @@
-const User = require("../models/user.model.js");
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const User = require('../models/user.model.js');
 
 // Read
 exports.login = (req, res) => {
@@ -10,27 +10,26 @@ exports.login = (req, res) => {
       if (!user) {
         // 404 = Not Found
         return res.status(404).send({
-          message: "User not found with email " + req.body.email,
+          message: `User not found with email ${req.body.email}`,
         });
       }
-      let passwordIsValid = bcrypt.compareSync(
+      const passwordIsValid = bcrypt.compareSync(
         req.body.password,
-        user.password
+        user.password,
       );
       if (!passwordIsValid) {
         // 401 = Unauthorized
         return res.status(401).send({
-          message: "Password not valid",
+          message: 'Password not valid',
           auth: false,
         });
-      };
-      let userToken = jwt.sign({ 
+      }
+      const userToken = jwt.sign({
         id: user._id,
         isAdmin: user.isAdmin,
-        },process.env.SECRET_KEY
-      );
+      }, process.env.SECRET_KEY);
       res.send({
-        message: "User connected",
+        message: 'User connected',
         auth: true,
         token: userToken,
       });
