@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const bcrypt = require("bcrypt");
 
 // const validEmail = (email) => {
 //   const regexEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
@@ -45,5 +46,17 @@ const userSchema = new mongoose.Schema(
     timestamps: true,
   }
 );
+
+userSchema.pre('save', function(next) {
+  
+  if (!this.isModified('password')) {
+    return next();
+  }
+
+  let hashedPassword = bcrypt.hashSync(this.password, 10);
+  this.password = hashedPassword;
+  next();
+});
+
 
 module.exports = mongoose.model("User", userSchema);
